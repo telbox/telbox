@@ -1,1 +1,2 @@
-from .base import Bot
+from .base import Bot, updater
+from .dispatcher import dispatcher
