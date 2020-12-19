@@ -1,8 +1,9 @@
+from pathlib import Path
+
 from telbox.utils import command
 from telegram.ext import CommandHandler, Handler
 from telegram.ext.callbackcontext import CallbackContext as Context
 from telegram.update import Update
-from pathlib import Path
 
 
 @command("start")
