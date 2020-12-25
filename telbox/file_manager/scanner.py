@@ -1,6 +1,7 @@
 from .base import ScannerBase
 from telbox.bot import Bot
 import os
+from .file_handler import FileHandler
 
 
 class Scanner(ScannerBase):
@@ -11,11 +12,8 @@ class Scanner(ScannerBase):
 
     def update_file(self, file):
         file = self.home / file
-        file_size = file.stat().st_size
-        print(file, file_size)
-        limit = 50 * 1024 * 1024
-        if file_size < limit:
-            Bot.send_document(self.chat_id, document=open(file))
+        f = FileHandler(file)
+        f.update_file()
 
 
 scanner = Scanner()
