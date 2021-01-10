@@ -33,9 +33,11 @@ class FileHandler:
     def exist(self):
         # check database to see if file exist or not
         raise NotImplementedError
-    @property 
+
+    @property
     def modifcation_time(self):
         return self.file.stat().st_mtime
+
     def update_database(self, msg: Message):
         id = msg.message_id
         date = msg.date
@@ -43,7 +45,7 @@ class FileHandler:
         document = msg.document.file_id
         file_size = msg.document.file_size
         unique_id = msg.document.file_unique_id
-        mtime = 
+        # mtime =
         # update database after each action
         raise NotImplementedError
 
@@ -70,9 +72,7 @@ class FileHandler:
         file = self.file
         logging.info(f"Uploading file {self.file.name}")
         bx = Bot.send_document(self.chat_id, document=open(file), filename=file.name)
-        import ipdb
 
-        ipdb.set_trace()
         logging.info(f"Uploading  {self.file} is finished")
 
     def update_file(self):
