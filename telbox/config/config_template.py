@@ -1,4 +1,5 @@
 template = '''[DEFAULT]
 
 TELEGRAM_BOT_API = 
+TELEGRAM_CHAT_ID = 
 '''

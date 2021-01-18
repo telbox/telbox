@@ -24,4 +24,4 @@ def get_config():
     config = configparser.ConfigParser()
     config.read(config_file)
     return config['DEFAULT']
-    
+  
