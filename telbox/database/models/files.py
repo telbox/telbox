@@ -2,6 +2,7 @@ from .. import Base
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import backref, relationship
 from pathlib import Path
+from datetime import datetime
 from telbox.config import get_config
 
 config = get_config()
@@ -12,12 +13,10 @@ class File(Base):
     __tablename__ = 'files'
     id = Column(Integer, primary_key=True)
     name = Column(String, index=True)
-    last_mtime = Column(DateTime, nullable=False)
+    last_mtime = Column(DateTime, nullable=False, default =datetime.now )
     upload_time = Column(DateTime, nullable=True)
     is_file = Column(Boolean, default=True)
 
-    parent_id = Column(Integer, ForeignKey('files.id'), nullable=True, default=1)
-    parent = relationship("File", backref='child')
 
     @property
     def path(self):
@@ -28,3 +27,6 @@ class File(Base):
                 home = Path.home() / "telbox"
             return Path(home)
         return self.parent.path / self.name
+
+File.parent_id = Column(Integer, ForeignKey("files.id"), nullable=True,default=1)
+File.parent = relationship(File,remote_side=File.id,backref='children')
