@@ -16,6 +16,11 @@ class File(Base):
     last_mtime = Column(DateTime, nullable=False, default =datetime.now )
     upload_time = Column(DateTime, nullable=True)
     is_file = Column(Boolean, default=True)
+    document = Column(String)
+    file_size = Column(Integer)
+    unique_id = Column(String)
+    chat_id = Column(Integer)
+
 
 
     @property
@@ -27,6 +32,8 @@ class File(Base):
                 home = Path.home() / "telbox"
             return Path(home)
         return self.parent.path / self.name
+    def __repr__(self):
+        return f'path: {self.path}; file: {self.is_file}'
 
 File.parent_id = Column(Integer, ForeignKey("files.id"), nullable=True,default=1)
 File.parent = relationship(File,remote_side=File.id,backref='children')

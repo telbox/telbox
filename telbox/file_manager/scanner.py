@@ -2,11 +2,13 @@ from .base import ScannerBase
 from telbox.bot import Bot
 import os
 from .file_handler import FileHandler
-
+import glob
 
 class Scanner(ScannerBase):
     def check_files(self):
-        file_lists = os.listdir(self.home)
+        path = str(self.get_home())
+        file_lists = glob.iglob(path+'/**/*', recursive=True)
+
         for file in file_lists:
             self.update_file(file)
 
@@ -18,3 +20,4 @@ class Scanner(ScannerBase):
 
 scanner = Scanner()
 scanner.check_files()
+
